@@ -1,14 +1,12 @@
 package com.example.ToDoApp.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class AuthResponse {
-    String token;
-
-    public AuthResponse(String token) {
-        this.token = token;
-    }
+    private String token;
 }

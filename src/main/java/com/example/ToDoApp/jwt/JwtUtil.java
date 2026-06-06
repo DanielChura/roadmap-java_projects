@@ -15,6 +15,7 @@ import io.jsonwebtoken.security.Keys;
 
 @Service
 public class JwtUtil {
+
     private final String SECRET = "springbootspringbootspringboot1234";
     private final Integer EXPIRATION_MS = 24 * 60 * 60 * 1000;
 
@@ -22,9 +23,8 @@ public class JwtUtil {
         return getClaims(token).getSubject();
     }
 
-    public Boolean isTokenExpired(String token) {
-        Date expiration = getClaims(token).getExpiration();
-        return expiration.before(new Date());
+    public boolean isTokenExpired(String token) {
+        return getClaims(token).getExpiration().before(new Date());
     }
 
     public Claims getClaims(String token) {
@@ -36,8 +36,7 @@ public class JwtUtil {
     }
 
     private SecretKey getSignKey() {
-        return Keys.hmacShaKeyFor(
-                SECRET.getBytes(StandardCharsets.UTF_8));
+        return Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
     }
 
     public String generateToken(User user) {
@@ -52,15 +51,11 @@ public class JwtUtil {
                 .compact();
     }
 
-    public Boolean validateToken(String token, User user) {
+    public boolean validateToken(String token, User user) {
         try {
-            final String username = getUsername(token);
-
-            return username.equals(user.getEmail());
+            return getUsername(token).equals(user.getEmail());
         } catch (Exception e) {
-            System.out.println("Firma JWT inválida: " + e.getMessage());
             return false;
         }
-
     }
 }

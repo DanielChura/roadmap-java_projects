@@ -4,16 +4,15 @@ import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
-public class UserResponse {
-    Long id;
-    String name;
-    String email;
-    List<TodoResponse> tasks;
+public class PaginatedResponse<T> {
+
+    private List<T> data;
+    private int page;
+    private int limit;
+    private long total;
 }
